@@ -12,8 +12,9 @@ import (
 )
 
 const (
-	address     = "localhost:50051"
-	defaultName = "world"
+	address            = "localhost:50051"
+	defaultName        = "world"
+	defaultAge  uint32 = 12
 )
 
 func main() {
@@ -27,13 +28,15 @@ func main() {
 
 	// Contact the server and print out its response.
 	name := defaultName
+	age := defaultAge
 	if len(os.Args) > 1 {
 		name = os.Args[1]
-		age := os.Args[2]
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name, Age: age})
+	request := &pb.HelloRequest{Name: name, Age: age}
+	log.Println(request)
+	r, err := c.SayHello(ctx, request)
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
