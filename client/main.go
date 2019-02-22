@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	pb "github.com/JacobSMoller/grpc-hello-go"
+	pb "github.com/JacobSMoller/grpc-hello-go/proto"
 	"google.golang.org/grpc"
 )
 
@@ -29,10 +29,11 @@ func main() {
 	name := defaultName
 	if len(os.Args) > 1 {
 		name = os.Args[1]
+		age := os.Args[2]
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name, Age: age})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
