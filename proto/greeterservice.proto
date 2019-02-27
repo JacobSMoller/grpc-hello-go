@@ -11,7 +11,7 @@ service Greeter {
 // The request message containing the user's name.
 message HelloRequest {
     string name = 1;
-    uint32 age = 2 [(validate.rules).uint32.gt    = 18];
+    uint64 age = 2 [(validate.rules).uint64.gt    = 18];
 }
 
 // The response message containing the greetings

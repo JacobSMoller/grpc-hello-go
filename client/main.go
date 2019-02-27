@@ -5,6 +5,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	pb "github.com/JacobSMoller/grpc-hello-go/proto"
@@ -14,7 +15,7 @@ import (
 const (
 	address            = "localhost:50051"
 	defaultName        = "world"
-	defaultAge  uint32 = 12
+	defaultAge  uint32 = 19
 )
 
 func main() {
@@ -31,6 +32,9 @@ func main() {
 	age := defaultAge
 	if len(os.Args) > 1 {
 		name = os.Args[1]
+		if intAge, err := strconv.ParseInt(os.Args[2], 10, 32); err == nil {
+			age = intAge
+		}
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()

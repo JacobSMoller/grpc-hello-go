@@ -20,6 +20,10 @@ type server struct{}
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	err := in.Validate()
+	if err != nil {
+		return nil, err
+	}
 	log.Printf("Received: %v, %v", in.Name, in.Age)
 	response := fmt.Sprintf("Hello %s you are %d years old", in.Name, in.Age)
 	return &pb.HelloReply{Message: response}, nil
