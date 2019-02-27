@@ -9,6 +9,8 @@ import (
 
 	pb "github.com/JacobSMoller/grpc-hello-go/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 const (
@@ -22,7 +24,7 @@ type server struct{}
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	err := in.Validate()
 	if err != nil {
-		return nil, err
+		return nil, status.Errorf(codes.InvalidArgument, err.Error())
 	}
 	log.Printf("Received: %v, %v", in.Name, in.Age)
 	response := fmt.Sprintf("Hello %s you are %d years old", in.Name, in.Age)

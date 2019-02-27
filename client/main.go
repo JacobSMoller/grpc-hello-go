@@ -15,7 +15,7 @@ import (
 const (
 	address            = "localhost:50051"
 	defaultName        = "world"
-	defaultAge  uint32 = 19
+	defaultAge  uint64 = 19
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	age := defaultAge
 	if len(os.Args) > 1 {
 		name = os.Args[1]
-		if intAge, err := strconv.ParseInt(os.Args[2], 10, 32); err == nil {
+		if intAge, err := strconv.ParseUint(os.Args[2], 10, 32); err == nil {
 			age = intAge
 		}
 	}
