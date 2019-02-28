@@ -22,11 +22,11 @@ type server struct{}
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	log.Printf("Received: %v, %v", in.Name, in.Age)
 	err := in.Validate()
 	if err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, err.Error())
 	}
-	log.Printf("Received: %v, %v", in.Name, in.Age)
 	response := fmt.Sprintf("Hello %s you are %d years old", in.Name, in.Age)
 	return &pb.HelloReply{Message: response}, nil
 }

@@ -39,7 +39,6 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	request := &pb.HelloRequest{Name: name, Age: age}
-	log.Println(request)
 	r, err := c.SayHello(ctx, request)
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)

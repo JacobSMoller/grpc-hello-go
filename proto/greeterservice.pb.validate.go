@@ -41,7 +41,12 @@ func (m *HelloRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
+	if len(m.GetName()) < 4 {
+		return HelloRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at least 4 bytes",
+		}
+	}
 
 	if m.GetAge() <= 18 {
 		return HelloRequestValidationError{
